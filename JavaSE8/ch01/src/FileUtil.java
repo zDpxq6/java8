@@ -5,39 +5,18 @@ import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
 //(C) 2015 Tsuguka Hatanaka
 
-//練習問題2
-//Fileオブジェクトの配列が渡されたとします．
-//java.io.FileクラスのlistFiles(FileFilter)メソッドと
-//isDirectoryメソッドを使用して, 指定されたディレクトリの下の全てのサブディレクトリを返すメソッドを書きなさい.
-//FileFilterオブジェクトではなく, ラムダ式を使用しなさい.
-//同じことを, メソッド参照を用いて行いなさい.
 public final class FileUtil {
+	private FileUtil() {}
 
-	public static void main(String[] args) {
-		File root = new File("/Users/tsuguka/Desktop/root");
-		List<File> list = FileUtil.getSubDirectories(root);
-		for (File e : list) {
-			System.out.println(e);
-		}
-
-		list = FileUtil.getSpecificFiles(root, "txt");
-		for (File e : list) {
-			System.out.println(e);
-		}
-
-		File[] files = root.listFiles();
-		System.out.println("********************");
-		for (File e : sort(files)) {
-			System.out.println(e);
-		}
-	}
-
-	private FileUtil() {
-	}
-
+	//練習問題2
+	//java.io.FileクラスのlistFiles(FileFilter)メソッドと
+	//isDirectoryメソッドを使用して, 指定されたディレクトリの下の全てのサブディレクトリを返すメソッドを書きなさい.
+	//FileFilterオブジェクトではなく, ラムダ式を使用しなさい.
+	//同じことを, メソッド参照を用いて行いなさい.
 	/**
 	 * 指定されたディレクトリの下の全てのサブディレクトリを返す. 指定されたディレクトリがサブディレクトリを持たない場合や,
 	 * 指定されたのがディレクトリでなくファイルだった場合には, 空のリストを返す
@@ -71,6 +50,11 @@ public final class FileUtil {
 		return result;
 	}
 
+	//練習問題3
+	//java.io.Fileクラスのlist(FilenameFilter)を使用して,
+	//指定されたディレクトリの下にあって, 指定された拡張子を持つ, すべてのファイルを返すメソッドを書きなさい.
+	//FilenameFilterではなく, ラムダ式を使用しなさい.エンクロージングスコープからキャプチャされる変数はどれですか.
+	//同じことを, メソッド参照を用いて行いなさい.
 	/**
 	 * 指定されたディレクトリの下にあって, 指定された拡張子を持つ, 全てのファイルを返す. 指定されたディレクトリがサブディレクトリを持たない場合や,
 	 * 指定されたのがディレクトリでなくファイルだった場合には, 空のリストを返す
@@ -79,11 +63,9 @@ public final class FileUtil {
 	 * @param expression
 	 * @return
 	 */
-	private static final List<File> getSpecificFiles(File parentDirectory, final String expression) {
+	public static final List<File> getSpecificFiles(File parentDirectory, final String expression) {
 
-		if (parentDirectory == null) {
-			return new ArrayList<>();
-		} else if (parentDirectory.isFile()) {
+		if (parentDirectory == null || parentDirectory.isFile()) {
 			return new ArrayList<>();
 		}
 		if (expression == null) {
@@ -92,16 +74,17 @@ public final class FileUtil {
 
 		Pattern p = Pattern.compile("^*." + expression + "$");
 
-		File[] fileArray = parentDirectory.listFiles((dir, name) -> {
+		String[] fileNameArray = parentDirectory.list((dir, name) -> {
 			Matcher m = p.matcher(name);
 			return m.find();
 		});
+
+		Stream<File> str = Stream.of(fileNameArray).map(File::new);
+		File[] fileArray = str.toArray(File[]::new);
 		List<File> result = new ArrayList<File>(Arrays.asList(fileArray));
 		File[] directriesArray = parentDirectory.listFiles(File::isDirectory);
 		List<File> subResult = null;
-		if (directriesArray == null) {
-			subResult = new ArrayList<>();
-		} else if (directriesArray.length <= 0) {
+		if (directriesArray == null || directriesArray.length <= 0) {
 			subResult = new ArrayList<>();
 		} else {
 			subResult = Arrays.asList(directriesArray);
