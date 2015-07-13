@@ -45,7 +45,7 @@ public final class FileUtil {
 	 * @param parentDirectory
 	 * @return
 	 */
-	private static final List<File> getSubDirectories(File parentDirectory) {
+	public static final List<File> getSubDirectories(File parentDirectory) {
 		if (parentDirectory == null) {
 			return new ArrayList<>();
 		} else if (parentDirectory.isFile()) {
