@@ -68,7 +68,7 @@ public class FileUtilTest {
 	}
 
 	@Test
-	public void getSpecificFiles_() {
+	public void getSpecificFiles_ルートと拡張子を指定すると_一致する拡張子一覧が取得できる() {
 		List<File> actual = FileUtil.getSpecificFiles(new File("root"), "txt");
 		actual.forEach(System.out::println);
 		List<File> expected = new ArrayList<>();
@@ -76,6 +76,28 @@ public class FileUtilTest {
 		expected.add(new File("leaf21.txt"));
 		expected.add(new File("leaf22.txt"));
 		expected.add(new File("leaf31.txt"));
+		assertThat(actual, is(expected));
+	}
+
+	@Test
+	public void sort_引数がnullだと空の配列を返す() {
+		File[] actual = FileUtil.sort(null);
+		assertThat(actual, is(new File[0]));
+	}
+
+	@Test
+	public void sort_引数がファイルディレクトリ混じりの配列だとディレクトリファイルの順で返す() {
+		File[] expected = new File[4];
+		expected[0] = new File("root/node11");
+		expected[1] = new File("root/node12");
+		expected[2] = new File("root/.DS_Store");
+		expected[3] = new File("root/leaf10.txt");
+		File[] fileArray = new File[4];
+		fileArray[0] = expected[1];
+		fileArray[1] = expected[2];
+		fileArray[2] = expected[3];
+		fileArray[3] = expected[0];
+		File[] actual = FileUtil.sort(fileArray);
 		assertThat(actual, is(expected));
 	}
 }

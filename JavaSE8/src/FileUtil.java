@@ -57,7 +57,7 @@ public final class FileUtil {
 	//同じことを, メソッド参照を用いて行いなさい.
 	/**
 	 * 指定されたディレクトリの下にあって, 指定された拡張子を持つ, 全てのファイルを返す. 指定されたディレクトリがサブディレクトリを持たない場合や,
-	 * 指定されたのがディレクトリでなくファイルだった場合には, 空のリストを返す
+	 * 指定されたのがディレクトリでなくファイルだった場合には, 空のリストを返す.
 	 *
 	 * @param parentDirectory
 	 * @param expression
@@ -95,6 +95,12 @@ public final class FileUtil {
 		return result;
 	}
 
+	//練習問題4
+	//Fileオブジェクトの配列が渡されたとします．
+	//その配列をソートして, ファイルの前にディレクトリが来るようにし,
+	//ファイルとディレクトリのそれぞれのグループではパス名で
+	//ソートされるようにしなさい．
+	//Comparatorでなく, ラムダ式を使用しなさい.
 	/**
 	 * 指定された配列を, ディレクトリ, ファイルの順でソートする. ディレクトリとファイルのそれぞれのグループでは, パス名でソートされる.
 	 * 指定された配列がnullの場合, 空の配列が返る.
@@ -102,7 +108,7 @@ public final class FileUtil {
 	 * @param target
 	 * @return
 	 */
-	private static final File[] sort(File[] target) {
+	public static final File[] sort(File[] target) {
 		if (target == null) {
 			return new File[0];
 		}
