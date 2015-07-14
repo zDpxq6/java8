@@ -16,11 +16,9 @@ public interface UncheckedRunnable {
 			try {
 				runner.run();
 			} catch (RuntimeException re) {
-				re.printStackTrace();
 				throw re;
-			} catch (Exception t) {
-				t.printStackTrace();
-				throw new RuntimeException(t);
+			} catch (Exception e) {
+				throw new RuntimeException(e);
 			}
 		};
 		return result;
