@@ -1,5 +1,4 @@
 
-
 //練習問題6
 //Runnable内でチェックされる例外を処理しなければならないことが, いつも面倒だと思っていませんか．
 //チェックされるすべての例外をキャッチし, それをチェックされない例外へ変えるuncheckメソッドを書きなさい．
@@ -8,19 +7,37 @@
 //	{System.out.println("Zzz"); Thread.sleep(1000); })).
 //	start();
 //		//catch (InterruptedException)が必要ありません!
-public interface UncheckedRunnable {
-	void run() throws Exception;
-
-	static Runnable uncheck(UncheckedRunnable runner) {
-		Runnable result = () -> {
+public interface RunnableEx {
+	abstract void run() throws Exception;
+	public static Runnable uncheck(RunnableEx runner) {
+		if (runner == null) {
+			runner = () -> {
+			};
+		}
+		RunnableEx r = runner;
+		return () -> {
 			try {
-				runner.run();
-			} catch (RuntimeException re) {
-				throw re;
+				r.run();
 			} catch (Exception e) {
 				throw new RuntimeException(e);
 			}
 		};
-		return result;
+	}
+}
+
+interface Runnableex2 {// これでできないのはなぜ?
+	public static Runnable uncheck(Runnable runner) {
+		if (runner == null) {
+			runner = () -> {
+			};
+		}
+		Runnable r = runner;
+		return () -> {
+			try {
+				r.run();
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+		};
 	}
 }
