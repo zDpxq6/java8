@@ -7,6 +7,10 @@
 //	{System.out.println("Zzz"); Thread.sleep(1000); })).
 //	start();
 //		//catch (InterruptedException)が必要ありません!
+//ヒント: どのような例外でもスローできるrunメソッドを持つRunnableExインターフェースを定義します．
+//そして, public static Runnable uncheck(RunnableEx runner)を実装します．
+//uncheckメソッド内でラムダ式を使用します.
+//なぜ1，RunnableExの代わりにCallable<Void>を使用できないのでしょうか.
 public interface RunnableEx {
 	abstract void run() throws Exception;
 	public static Runnable uncheck(RunnableEx runner) {
