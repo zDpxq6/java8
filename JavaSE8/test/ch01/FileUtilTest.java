@@ -1,3 +1,4 @@
+package ch01;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -6,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
+
+import ch01.FileUtil;
 
 public class FileUtilTest {
 

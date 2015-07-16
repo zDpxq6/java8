@@ -1,3 +1,4 @@
+package ch01;
 
 
 //(C) 2015 Tsuguka Hatanaka

@@ -1,4 +1,7 @@
+package ch01;
 import org.junit.Test;
+
+import ch01.RunnableEx;
 
 public class RunnableExTest {
 
