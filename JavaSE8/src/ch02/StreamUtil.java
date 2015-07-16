@@ -16,10 +16,14 @@ import java.util.stream.StreamSupport;
 //代わりに, ストリームを使用して1行で書きなさい.
 //適切な方法は, 0からs.length()-1までの整数のストリームを作成して, それを
 //s::charAtメソッド参照でマップすることです.
-public class StreamUtils {
+public class StreamUtil {
+
 	public static void main(String[] args) {
-		Stream<Character> characterStream = characterStream(null);
-		characterStream.forEach(System.out::println);
+		Stream<String> stmA = Stream.of("A0", "A1", "A2", "A3", "A4", "A5");
+		Stream<String> stmB = Stream.empty();
+		Stream<Stream<String>> stmC = Stream.of(stmA, stmB);
+		stmC.forEach(System.out::println);
+		StreamUtil.zip(stmA, stmB).forEach(System.out::println);
 	}
 
 	/**
@@ -39,7 +43,7 @@ public class StreamUtils {
 	//そのメソッドは, ストリームであるfirstとsecondから要素を交互に取り出し, どちらかのストリームから要素がなくなったら停止します.
 
 	public static <T> Stream<T> zip(Stream<T> s1, Stream<T> s2) {
-		if(s1 == null || s2 == null ){
+		if(s1 == null){
 			return Stream.empty();
 		}
 		ContainerIterator<T, T, Container<T>> itr = new ContainerIterator<>(s1.iterator(), s2.iterator(), Container<T>::new);
