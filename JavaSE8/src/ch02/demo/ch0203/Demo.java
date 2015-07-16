@@ -1,4 +1,4 @@
-package demo.ch0203;
+package ch02.demo.ch0203;
 
 import java.io.IOException;
 import java.nio.file.Files;

@@ -1,4 +1,4 @@
-package demo.ch0205;
+package ch02.demo.ch0205;
 
 //5. Stream.iterateを使用して乱数の無限ストリームを生成しなさい．
 //このとき, Math.randomを呼び出すのではなく, 線形合同生成機を直接実装すること.

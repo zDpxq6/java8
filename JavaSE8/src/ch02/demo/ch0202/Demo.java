@@ -1,4 +1,4 @@
-package demo.ch0202;
+package ch02.demo.ch0202;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

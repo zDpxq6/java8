@@ -1,4 +1,4 @@
-package demo.ch0207;
+package ch02.demo.ch0207;
 
 //6. 上司が, メソッドとしてpublic static <T> boolean isFinite(Stream<T> stream)を作成するように求めています.
 //それは, よくない考えでしょうか. まずは作成してから考えてみなさい.
