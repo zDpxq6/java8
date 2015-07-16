@@ -1,0 +1,28 @@
+//練習問題8
+// ラムダ式が次のような拡張forループの値キャプチャした場合には, どうなりますか.
+//(中略)
+//これは正当なコードでしょうか.
+//各ラムダ式は異なる値をキャプチャするのでしょうか.
+//それとも, すべてのラムダ式が最後の値をキャプチャするのでしょうか.
+//従来のfor(int i = 0; i < names.length; i++)ループを使用すると, どうなるでしょうか．
+public class CaptureDemo {
+    public static void main(String[] args) {
+        String names[] = { "Peter", "Paul", "Mary" };
+        List<Runnable> runners = new ArrayList<>();
+        for (String name : names) {
+            runners.add(() -> System.out.println(name));
+        }
+
+//      Local variable i defined in an enclosing scope must be final or effectively final
+//      for(int i = 0; i < names.length; i++){
+//          runners.add(() -> System.out.println(names[i]));
+//      }
+
+        for(Runnable e : runners){
+            new Thread(e).start();
+        }
+    }
+}
+
+正当なコード. 各ラムダ式は異なる値をキャプチャする.
+カウンタを使うfor文を使うと動かない. (カウンタがfinalか実質finalでないので)
