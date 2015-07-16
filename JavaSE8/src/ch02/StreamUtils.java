@@ -6,7 +6,7 @@ import static java.util.stream.Stream.iterate;
 
 import java.util.stream.Stream;
 
-//31ページの2.3節「filter, map, flatMapメソッド」のcharacterStreamメソッドは,
+//6. 31ページの2.3節「filter, map, flatMapメソッド」のcharacterStreamメソッドは,
 //最初にArrayListを埋めて,それからそのリストをストリームに変換するという具合に, 多少ぎこちないです.
 //代わりに, ストリームを使用して1行で書きなさい.
 //適切な方法は, 0からs.length()-1までの整数のストリームを作成して, それを
