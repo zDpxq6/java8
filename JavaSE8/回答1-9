@@ -1,0 +1,30 @@
+//(C) 2015 Tsuguka Hatanaka
+
+//練習問題9
+// CollectionのサブインターフェースであるCollection2を作成して,
+// デフォルトメソッドとして void forEachIf(Consumer<T> action, Predicate<T> filter)
+// を追加しなさい. そのメソッドは, filterがtrueを返してきた個々の要素に対してactionを適用します.
+// どのような場面で, そのメソッドを活用できるでしょうか.
+public interface Collection2<T> extends Collection<T> {
+    /**
+     * 2つのRunnableインスタンスをパラメータとして受け取るようにし, 最初のRunnableを実行したあと2つ目のRunnableを返す.
+     * 引数にnullが渡ってきた場合, IllegalArgumentExceptionを投げる.
+     * @param action  要素に対して実行するアクション
+     * @param filter 各要素にactionを適用するか決める述語
+     * @throws IllegalArgumentException 引数のいずれかがnullのとき
+     */
+    default void forEachIf(Consumer<T> action, Predicate<T> filter) {
+        if (action == null || filter == null) {
+            throw new IllegalArgumentException();
+        }
+        forEach((t) -> {
+            if (filter.test(t)) {
+                action.accept(t);
+            }
+        });
+    }
+}
+
+回答
+Collection2インターフェースを実装したクラスでないと使えないのでそのようなクラスがなければ使えない.
+Collectionsクラスに類似のstaticメソッドを追加する方が役に立つ.
