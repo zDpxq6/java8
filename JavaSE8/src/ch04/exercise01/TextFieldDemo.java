@@ -16,12 +16,16 @@ import javafx.stage.Stage;
 ユーザがテキストフィールドを編集したらラベルも更新するようにしなさい.
 */
 public class TextFieldDemo extends Application {
+	private static final String INITIAL_MESSAGE = "Hello, FX!";
+	private static final String TITLE = "TextFieldDemo";
+	private static final int FONT_SIZE = 100;
+
 	@Override
 	public void start(Stage stage) {
-		Label label = new Label("Hello, JavaFX!");// ラベルの作成
-		label.setFont(new Font(100));// フォントの作成
+		Label label = new Label(INITIAL_MESSAGE);// ラベルの作成
+		label.setFont(new Font(FONT_SIZE));// フォントの作成
 
-		TextField textField = new TextField("Hello, JavaFX!");// テキストフィールドの作成
+		TextField textField = new TextField(INITIAL_MESSAGE);// テキストフィールドの作成
 		textField.textProperty().addListener(property -> label.setText(textField.getText()));
 
 		VBox root = new VBox();// 縦に並べる箱の作成
@@ -29,7 +33,7 @@ public class TextFieldDemo extends Application {
 
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
-		stage.setTitle("Hello");
+		stage.setTitle(TITLE);
 		stage.show();
 	}
 }
