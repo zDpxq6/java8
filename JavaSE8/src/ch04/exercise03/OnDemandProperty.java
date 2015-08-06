@@ -12,22 +12,16 @@ import javafx.beans.property.SimpleObjectProperty;
 */
 public class OnDemandProperty {
 	private Object xxx = new Object();
-	private ObjectProperty<Object> xxxProperty;
 
 	public final ObjectProperty<Object> xxxProperty() {
-		if (this.xxxProperty == null) {
-			this.xxxProperty = new SimpleObjectProperty<Object>();
-			this.xxxProperty.set(this.xxx);
-		}
-		return this.xxxProperty;
+		ObjectProperty<Object> result = new SimpleObjectProperty<Object>();
+		result.set(this.xxx);
+		return result;
 	}
 
 	public final void setXXX(Object newValue) {
 		Objects.requireNonNull(newValue, "A parameter is null");
 		this.xxx = newValue;
-		if (this.xxxProperty != null) {
-			this.xxxProperty.set(this.xxx);
-		}
 	}
 
 	public final Object getXXX() {
