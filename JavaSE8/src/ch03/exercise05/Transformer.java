@@ -11,11 +11,14 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-//次は, ColorTransformerの具体例です.
-//次のように, 画像の周りに枠を付加します.
-//最初に, 62ページの3.3節「関数型インターフェースの選択」のtransformメソッドを,
-//UnaryOperator<Color>の代わりにColorTramsformerで実装しなさい.
-//そのtransformメソッドを適切なラムダ式で呼び出しなさい.
+/*
+ 5.
+次は, ColorTransformerの具体例です.
+次のように, 画像の周りに枠を付加します.
+最初に, 62ページの3.3節「関数型インターフェースの選択」のtransformメソッドを,
+UnaryOperator<Color>の代わりにColorTramsformerで実装しなさい.
+そのtransformメソッドを適切なラムダ式で呼び出しなさい.
+*/
 @FunctionalInterface
 interface ColorTransformer {
 	Color apply(int x, int y, Color colorAtXY);
@@ -50,10 +53,10 @@ public class Transformer extends Application {
 	@Override
 	public void start(Stage stage) {
 		Image image = new Image("queen-mary.png");
-		Image brightenedImage = transform(image, Color::brighter);
-		Image image2 = transform(image, (x, y, c) -> x / 10 % 2 == y / 10 % 2 ? Color.GRAY : c);
-
-		stage.setScene(new Scene(new HBox(new ImageView(image), new ImageView(brightenedImage), new ImageView(image2))));
+		int width = (int) image.getWidth();
+		int height = (int) image.getHeight();
+		Image image2 = transform(image, (x, y, c) -> x < 10 || y < 10 || x >= width - 10 || y >= height - 10 ? Color.GRAY : c);
+		stage.setScene(new Scene(new HBox(new ImageView(image), new ImageView(image2))));
 		stage.show();
 	}
 }
