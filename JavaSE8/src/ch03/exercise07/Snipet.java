@@ -17,9 +17,9 @@ import javafx.stage.Stage;
 //Comparator<String>にしなさい.
 //メソッドは, ラムダ式を返すようにしなさい.
 
-public class DEMO extends Application {
+public class Snipet extends Application {
 	public static void main(String[] args) {
-		new DEMO().start(new Stage());
+		new Snipet().start(new Stage());
 	}
 
 	/**
