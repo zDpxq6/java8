@@ -26,6 +26,8 @@ interface ColorTransformer {
 
 public class Transformer extends Application {
 
+	private static final int MARGIN = 10;
+
 	public static Image transform(Image in, ColorTransformer f) {
 		int width = (int) in.getWidth();
 		int height = (int) in.getHeight();
@@ -55,7 +57,7 @@ public class Transformer extends Application {
 		Image image = new Image("queen-mary.png");
 		int width = (int) image.getWidth();
 		int height = (int) image.getHeight();
-		Image image2 = transform(image, (x, y, c) -> x < 10 || y < 10 || x >= width - 10 || y >= height - 10 ? Color.GRAY : c);
+		Image image2 = transform(image, (x, y, c) -> x < MARGIN || width - MARGIN <= x || y < MARGIN || height - MARGIN <= y ? Color.GRAY : c);
 		stage.setScene(new Scene(new HBox(new ImageView(image), new ImageView(image2))));
 		stage.show();
 	}
