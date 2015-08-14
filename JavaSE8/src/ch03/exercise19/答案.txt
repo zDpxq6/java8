@@ -1,0 +1,15 @@
+Stream<T>のメソッドである
+<U> U reduce(U identity, BiFunction<U, ? super T, U> accumulator, BinaryOperator<U> combiner)
+を見てみなさい.BiFunctionへの最初の型引数でUを? super Uと宣言すべきですか?
+その理由はなんですか.
+
+答案: 宣言できない. 
+JavaDocによると, リダクションは次の操作に相当する.
+>    U result = identity;
+>    for (T element : this stream){
+>        result = accumulator.apply(result, element);
+>    }
+>    return result;
+ここで, 最初の型引数のUを ? super Uと宣言すると, 最終的に戻り値も? super Uにしなければならない.
+戻り値はどのように使われるかわからないので, ? super Uと宣言するのは不適切.
+以上より, BiFunctionへの最初の型引数でUを? super Uと宣言すべきではない.
