@@ -1,62 +1,151 @@
 package ch03.exercise09;
 
+import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Objects;
 
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.image.WritableImage;
-import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
-
-/* 8. 画像に任意の幅と色の枠を追加するColorTransformerを生成するように,
-staticメソッドを書いて, 練習問題5を汎用化しなさい.
+/* 9. 指定された順序で, 指定されたフィールドを比較するコンパレータを作成する
+ * lexicographicComparator(String... fieldName)メソッドを書きなさい.
+ * 例えば, lexicographicComparator("lastname", "firstname")は,
+ * 2つのオブジェクトを受け取り, リフレクションを使用して, lastnameフィールドの値を取得します.
+ * 2つのオブジェクトのlastnameフィールドが異なれば, その差を返します. 同じであればfirstnameフィールドに移ります.
+ * 全てのフィールドが同じであれば, 0を返します.
 */
-@FunctionalInterface
-interface ColorTransformer {
-	Color apply(int x, int y, Color colorAtXY);
-}
 
-public class Transformer extends Application {
+public class Transformer {
 
-	public static Image transform(Image in, ColorTransformer f) {
-		int width = (int) in.getWidth();
-		int height = (int) in.getHeight();
-		WritableImage out = new WritableImage(width, height);
-		for (int x = 0; x < width; x++) {
-			for (int y = 0; y < height; y++) {
-				out.getPixelWriter().setColor(x, y, f.apply(x, y, in.getPixelReader().getColor(x, y)));
+	/**
+	 * 指定された順序で, 指定されたフィールドを比較するコンパレータを作成する. 例えば,
+	 * lexicographicComparator("lastname", "firstname")は, 2つのオブジェクトを受け取り,
+	 * lastnameフィールドの値を取得する. 2つのオブジェクトのlastnameフィールドが異なれば, その差を返す.
+	 * 同じであればfirstnameフィールドに移る. 全てのフィールドが同じであれば, 0を返す.
+	 * @param <T>
+	 *
+	 * @param fieldName
+	 * @return
+	 * @throws SecurityException
+	 * @throws NoSuchFieldException
+	 * @throws IllegalAccessException
+	 * @throws IllegalArgumentException
+	 */
+	public static <T> Comparator<? super T> lexicographicComparator(String... fieldName) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
+		Objects.requireNonNull(fieldName, "An argument is null.");
+		return (o1, o2) -> {
+			for (String n : fieldName) {
+				Comparable<?> t1 = null;
+				Comparable<?> t2 = null;
+				try {
+					t1 = getComparableField(o1, n);
+					t2 = getComparableField(o2, n);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				if (t1.equals(t2)) {
+					continue;
+				} else {
+					return ((Comparable) t1).compareTo(t2);
+				}
+			}
+			return 0;
+		};
+	}
+
+	/**
+	 * 指定されたオブジェクトの, 指定されたフィールドを取得する. privateなインスタンスフィールドも表示する.
+	 *
+	 * @param target
+	 *            指定されたオブジェクト.
+	 * @param fieldName
+	 *            指定されたフィールド名.
+	 * @return
+	 * @throws IllegalArgumentException
+	 *             - if the specified object is not an instance of the class or
+	 *             interface declaring the underlying field (or a subclass or
+	 *             implementor thereof).
+	 * @throws IllegalAccessException
+	 *             - if this Field object is enforcing Java language access
+	 *             control and the underlying field is inaccessible.
+	 * @throws NoSuchFieldException
+	 *             - if a field with the specified name is not found.
+	 * @throws SecurityException
+	 *             - If a security manager, s, is present and the caller's class
+	 *             loader is not the same as or an ancestor of the class loader
+	 *             for the current class and invocation of
+	 *             s.checkPackageAccess() denies access to the package of this
+	 *             class.
+	 * @throws ExceptionInInitializerError
+	 *             - if the initialization provoked by this method fails.
+	 */
+	public static Object getFieldValue(Object target, String fieldName) throws IllegalArgumentException, NoSuchFieldException, SecurityException {
+		Objects.requireNonNull(target, "The argument \"target\" is null.");
+		Objects.requireNonNull(fieldName, "The argument \"fieldName\" is null.");
+
+		Class<?> clazz = target.getClass();
+		Field f = null;
+		while (clazz != null) {
+			try {
+				f = clazz.getDeclaredField(fieldName);
+				break;
+			} catch (NoSuchFieldException e) {
+				clazz = clazz.getSuperclass();
 			}
 		}
-		return out;
-	}
-
-	private static ColorTransformer createTransformer(Image image, int xMergin, int yMergin, Color merginColor) {
-		Objects.requireNonNull(image, "An argument is null.");
-		Objects.requireNonNull(merginColor, "An argument is null.");
-		requireNonNegative(xMergin, "An argument is negative.");
-		requireNonNegative(yMergin, "An argument is negative.");
-		int width = (int) image.getWidth();
-		int height = (int) image.getHeight();
-		requireNonNegative(width - xMergin, "An argument is negative.");
-		requireNonNegative(height - yMergin, "An argument is negative.");
-		return (x, y, c) -> x < xMergin || width - xMergin <= x || y < yMergin || height - yMergin <= y ? merginColor : c;
-	}
-
-	private static int requireNonNegative(int value, String message) throws IllegalStateException {
-		if (value < 0) {
-			throw new IllegalStateException(message);
+		if (f != null) {
+			f.setAccessible(true);
+			try {
+				return f.get(target);
+			} catch (IllegalAccessException e) {
+				throw new AssertionError("Cannot access a field.");
+			}
+		} else {
+			throw new NoSuchFieldException("Could not find a field \"" + fieldName + "\".");
 		}
-		return value;
+	}
+
+	private static Comparable<?> getComparableField(Object target, String fieldName) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
+		Object o = getFieldValue(target, fieldName);
+		if (o instanceof Comparable) {
+			return (Comparable<?>) o;
+		} else {
+			throw new RuntimeException("Fields are not Comparable");
+		}
+	}
+
+	public static void main(String[] args) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
+		Person p1 = new Person("tsuguka", "hatanaka", 28);
+		Person p2 = new Person("ayumu", "hatanaka", 0);
+		List<Person> persons = Arrays.asList(p1,p2);
+		Comparator<? super Person> c = lexicographicComparator("firstName","lastName","age");
+		Collections.sort(persons, c);
+		for(Person e: persons){
+			System.out.println(e);
+		}
+	}
+}
+
+class SuperPerson {
+	public final String lastName;
+
+	SuperPerson(String lastName) {
+		this.lastName = lastName;
+	}
+}
+
+class Person extends SuperPerson {
+	private final String firstName;
+	private final int age;
+
+	Person(String lastName, String firstName, int age) {
+		super(lastName);
+		this.firstName = firstName;
+		this.age = age;
 	}
 
 	@Override
-	public void start(Stage stage) {
-		Image image = new Image("queen-mary.png");
-		Image image2 = transform(image, createTransformer(image, 30, 30, Color.RED));
-		stage.setScene(new Scene(new HBox(new ImageView(image), new ImageView(image2))));
-		stage.show();
+	public String toString() {
+		return this.lastName + " " + this.firstName + " (" + this.age + ")";
 	}
 }
