@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.UnaryOperator;
 
+import ch03.exercise11.ColorTransformer;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -14,12 +15,13 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /* 12. 69ページの3.6節「遅延」のLatentImageを機能拡張して,
- * UnaryOperator<Color>とColorTransfirmerの両方をサポートするようにしなさい.
+ * UnaryOperator<Color>とColorTransformerの両方をサポートするようにしなさい.
  * ヒント: UnaryOperator<Color>をColorTransformerへ適用させなさい.
  */
 class LatentImage {
 	private Image in;
-	private List<UnaryOperator<Color>> pendingOperations;
+	// private List<UnaryOperator<Color>> pendingOperations;
+	private List<ColorTransformer> pendingOperations;
 
 	public static LatentImage from(Image in) {
 		LatentImage result = new LatentImage();
@@ -29,6 +31,11 @@ class LatentImage {
 	}
 
 	LatentImage transform(UnaryOperator<Color> f) {
+		this.pendingOperations.add(ColorTransformer.convert(f));
+		return this;
+	}
+
+	LatentImage transform(ColorTransformer f) {
 		this.pendingOperations.add(f);
 		return this;
 	}
@@ -40,8 +47,8 @@ class LatentImage {
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
 				Color c = this.in.getPixelReader().getColor(x, y);
-				for (UnaryOperator<Color> f : this.pendingOperations) {
-					c = f.apply(c);
+				for (ColorTransformer f : this.pendingOperations) {
+					c = f.apply(x, y, c);
 				}
 				out.getPixelWriter().setColor(x, y, c);
 			}
