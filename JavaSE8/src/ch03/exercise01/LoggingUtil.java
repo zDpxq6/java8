@@ -15,12 +15,26 @@ public final class LoggingUtil {
 	private LoggingUtil() {
 	}
 
-	public static void logIf(Level level, Supplier<Boolean> condition, Supplier<String> message) {
+	/**
+	 * メッセージが実際に記録されるロギング・レベルである場合にのみ構築される, メッセージのログを記録します.
+	 * 指定されたメッセージ・レベルでロガーが現在使用可能な場合, メッセージが指定されたサプライヤ関数を呼び出して構築され,
+	 * 登録されているすべての出力ハンドラ・オブジェクトに転送されます.
+	 *
+	 * @param level
+	 *            - メッセージ・レベル識別子の1つ. たとえば, SEVERE
+	 * @param condition
+	 *            - ログを記録する条件. 満たされなければmsgSupplierは評価されない.
+	 * @param msgSupplier
+	 *            - 呼び出されると, 目的のログ・メッセージを生成する関数
+	 * @throws NullPointerException
+	 *             - 引数がnullの場合
+	 */
+	public static void logIf(Level level, Supplier<Boolean> condition, Supplier<String> msgSupplier) {
 		Objects.requireNonNull(level, "An parameter: level is null.");
-		Objects.requireNonNull(condition, "An parameter: predicate is null.");
-		Objects.requireNonNull(message, "An parameter: counsumer is null.");
+		Objects.requireNonNull(condition, "An parameter: condition is null.");
+		Objects.requireNonNull(msgSupplier, "An parameter: msgSupplier is null.");
 		if (condition.get()) {
-			Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(level, message);
+			Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(level, msgSupplier);
 		}
 	}
 

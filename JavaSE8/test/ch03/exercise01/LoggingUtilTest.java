@@ -1,38 +1,45 @@
 package ch03.exercise01;
 
+import static org.junit.Assert.fail;
+
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.junit.Test;
 
-import ch03.exercise01.LoggingUtil;
-
 public class LoggingUtilTest {
 
-	@Test
-	public void characterStream_nullを入力すると空のストリームが返る() {
-		int i= 10;
-		int[] a = {1,2,3,4,5,6,7,8,9,0};
-		LoggingUtil.logIf(Level.FINEST, () -> i == 10, () -> "a[10] = " + a[10]);
+	private static int i = 10;
+	private static int[] a = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
+	private static final Logger LOGGER = Logger.getLogger("ch03.exercise01.LoggingUtilTest");
+
+	@Test(expected = NullPointerException.class)
+	public void nullを入力すると空のストリームが返る0() {
+		LoggingUtil.logIf(null, () -> i == 10, () -> "a[10] = " + a[10]);
+		fail();
 	}
-	//
-	// @Test
-	// public void characterStream_文字列を入力するとCharacterのStreamが返る() {
-	// Stream<Character> actual = StreamUtil.characterStream("TEST");
-	// assertThat(actual, is(Stream.of('T', 'E', 'S', 'T')));
-	// }
-	//
-	// @Test
-	// public void zip_引数がnullの場合_空のストリームが返る() {
-	// Stream<Character> actual = StreamUtil.zip(null,null);
-	// assertThat(actual, is(Stream.empty()));
-	// }
-	//
-	// public static void main(String[] args) {
-	// Stream<String> stmA = Stream.of("A0", "A1", "A2", "A3", "A4", "A5");
-	// Stream<String> stmB = Stream.empty();
-	// Stream<Stream<String>> stmC = Stream.of(stmA, stmB);
-	// stmC.forEach(System.out::println);
-	// StreamUtil.zip(stmA, stmB).forEach(System.out::println);
-	// }
+
+	@Test(expected = NullPointerException.class)
+	public void nullを入力すると空のストリームが返る1() {
+		LoggingUtil.logIf(Level.FINEST, null, () -> "a[10] = " + a[10]);
+		fail();
+	}
+
+	@Test(expected = NullPointerException.class)
+	public void nullを入力すると空のストリームが返る2() {
+		LoggingUtil.logIf(Level.FINEST, () -> i == 10, null);
+	}
+
+	@Test
+	public void logIfTest() {
+		LOGGER.info("log by info");
+		LoggingUtil.logIf(Level.INFO, () -> i == 10, () -> "a[9] = " + a[9]);
+	}
+
+	@Test
+	public void logIfTest2() {
+		LOGGER.info("log by info");
+		LoggingUtil.logIf(Level.FINEST, () -> i == 10, () -> "a[9] = " + a[9]);
+	}
 
 }
