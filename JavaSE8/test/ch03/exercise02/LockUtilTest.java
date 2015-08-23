@@ -1,67 +1,53 @@
 //(C) 2015 tsuguka hatanaka
 package ch03.exercise02;
 
-import java.util.Objects;
-/*
-2.
-ReentrantLockを使用する場合には, 次のイディオムでロックとアンロックをする必要があります.
+import static org.junit.Assert.fail;
 
-myLock.lock();
-try {
-    何らかの処理
-} finally {
-    myLock.unlock();
-}
-
-次のように呼び出すことができるwithLockメソッドを提供しなさい
-withLock(myLock, () -> { 何らかの処理 });
-*/
+import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+import org.junit.Test;
+
 public final class LockUtilTest {
-	public static void main(String[] args) {
-		ReentrantLock lock = new ReentrantLock();
+
+	private static final Lock LOCK = new ReentrantLock();
+	private static final long SLEEPING_DURATION = 1000;
+
+	@Test(expected = NullPointerException.class)
+	public void nullを入力すると空のストリームが返る0() {
+		LockUtil.withLock(null, () -> System.out.println("locking..."));
+		fail();
+	}
+
+	@Test(expected = NullPointerException.class)
+	public void nullを入力すると空のストリームが返る1() {
+		LockUtil.withLock(LOCK, null);
+		fail();
+	}
+
+	@Test
+	public void withLockTest() {
 		new Thread() {
 			@Override
 			public void run() {
-				LockUtil.withLock(lock, () -> {
+				LockUtil.withLock(LOCK, () -> {
 					try {
-						Thread.sleep(5000);
+						Thread.sleep(SLEEPING_DURATION);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-					System.out.println("test");
+					System.out.println("lock1");
 				});
 			}
 		}.start();
-		new Thread() {
-			@Override
-			public void run() {
-				LockUtil.withLock(lock, () -> {
-					try {
-						Thread.sleep(5000);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-					System.out.println("test");
-				});
+		LockUtil.withLock(LOCK, () -> {
+			try {
+				Thread.sleep(SLEEPING_DURATION);
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-		}.start();
-
-	}
-
-	private LockUtilTest() {
-	}
-
-	public static void withLock(ReentrantLock lock, Runnable runner) {
-		Objects.requireNonNull(lock, "A parameter lock is null.");
-		Objects.requireNonNull(runner, "A parameter runner is null.");
-		lock.lock();
-		try {
-			runner.run();
-		} finally {
-			lock.unlock();
-		}
+			System.out.println("lock2");
+		});
 	}
 
 }
