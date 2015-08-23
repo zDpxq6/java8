@@ -14,27 +14,21 @@ public final class AssertUtilTest {
 	}
 
 	@Test(expected = AssertionError.class)
+	public void conditionがtrueならassertionが出る() {
+		AssertionUtil.enableAsserting();
+		AssertionUtil.assertIf(() -> true, () -> "assertion");
+	}
+
+	@Test
 	public void conditionがfalseならassertionが出ない() {
 		AssertionUtil.enableAsserting();
-		AssertionUtil.assertIf(() -> true, () -> "assertion");
-	}
-
-	@Test
-	public void conditionがfalseならassertionが出る() {
-		AssertionUtil.enableAsserting();
 		AssertionUtil.assertIf(() -> false, () -> "assertion");
 	}
 
 	@Test
-	public void disableAssertingしているのでassertionはでない1() {
+	public void disableAssertingしているのでassertionが出ない() {
 		AssertionUtil.disableAsserting();
 		AssertionUtil.assertIf(() -> true, () -> "assertion");
-	}
-
-	@Test
-	public void disableAssertingしているのでassertionはでない2() {
-		AssertionUtil.disableAsserting();
-		AssertionUtil.assertIf(() -> false, () -> "assertion");
 	}
 
 }

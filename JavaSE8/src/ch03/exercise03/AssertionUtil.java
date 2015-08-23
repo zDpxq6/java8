@@ -8,12 +8,14 @@ import java.util.function.Supplier;
 なぜ, アサーションはライブラリの機能として提供されなかったのでしょう.
 Java8ではライブラリの機能として実装することができますか.
 */
-//「ライブラリの機能として提供する」の意味がわからない
 
-//遅延実行の機能がなかったため, 常に評価する必要があった.
-//assert(boolean isEnableAssertion, boolean condition condition, T expression)
-//引数を全て評価した上で, assertを実行しなければならないので, conditionの状況によらず, expressionが評価された.
-//これはconditionがnullの場合は不要な評価である.
+/*
+ *
+ * isAssertionがfalseの場合, 本質的にはcondition, messageの評価は不要であるが,
+ * Java 1.4リリース当時には, isAssertionの値に応じて, condition, messageの評価をしたり, しなかったりするよい方法がなかったため.
+ *
+ */
+
 public final class AssertionUtil {
 
 	private AssertionUtil() {
@@ -21,28 +23,51 @@ public final class AssertionUtil {
 
 	private static boolean isAsserting = false;
 
+	/**
+	 * アサーションの有効/無効を確認する
+	 * @return アサーションが有効になっている場合true/ 向こうの場合false
+	 */
 	public static boolean isAsserting() {
 		return isAsserting;
 	}
 
+	/**
+	 * アサーションを有効にする
+	 */
 	public static void enableAsserting() {
 		isAsserting = true;
 	}
 
+	/**
+	 * アサーションを無効にする
+	 */
 	public static void disableAsserting() {
 		isAsserting = false;
 	}
 
+	/**
+	 * isAssertingがtrueかつ, conditionがfalseを返す場合, AssertionErrorをスローする.
+	 * @param condition
+	 * @throws NullPointerException conditionがnullの場合
+	 * @throws AssertionError
+	 */
 	public static <T> void assertIf(Supplier<Boolean> condition) {
-		Objects.requireNonNull(condition, "A parameter: condition is null.");
 		if (isAsserting) {
+			Objects.requireNonNull(condition, "A parameter: condition is null.");
 			assertIfInternal(condition, null);
 		}
 	}
 
+	/**
+	 * isAssertingがtrueかつ, conditionがfalseを返す場合, expressionの結果をdetailMessageとした, AssertionErrorをスローする.
+	 * @param condition
+	 * @param detailMessage - AssertionErrorのdetailMessage
+	 * @throws NullPointerException
+	 * @throws AssertionError
+	 */
 	public static <T> void assertIf(Supplier<Boolean> condition, Supplier<T> expression) {
-		Objects.requireNonNull(condition, "A parameter: condition is null.");
 		if (isAsserting) {
+			Objects.requireNonNull(condition, "A parameter: condition is null.");
 			assertIfInternal(condition, expression);
 		}
 	}
