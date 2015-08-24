@@ -19,7 +19,7 @@ import javafx.stage.Stage;
 次は, ColorTransformerの具体例です.
 次のように, 画像の周りに枠を付加します.
 最初に, 62ページの3.3節「関数型インターフェースの選択」のtransformメソッドを,
-UnaryOperator<Color>の代わりにColorTramsformerで実装しなさい.
+UnaryOperator<Color>の代わりにColorTransformerで実装しなさい.
 そのtransformメソッドを適切なラムダ式で呼び出しなさい.
 */
 @FunctionalInterface

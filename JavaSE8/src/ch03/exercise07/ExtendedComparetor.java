@@ -10,7 +10,7 @@ import java.util.List;
 //Comparator<String>にしなさい.
 //メソッドは, ラムダ式を返すようにしなさい.
 
-public class ComparetorDemo {
+public class ExtendedComparetor {
 
 	private static final String BLANK = "";
 	private static final String SPACE = "\\s";
@@ -19,7 +19,7 @@ public class ComparetorDemo {
 		REVERSE, IGNORE_CASE, IGNORE_SPACE;
 	}
 
-	public static Comparator<String> comparator(Properties... properties) {
+	public static Comparator<? super String> comparator(Properties... properties) {
 		if (properties == null) {
 			return (o1, o2) -> o1.compareTo(o2);
 		}
@@ -40,29 +40,4 @@ public class ComparetorDemo {
 			}
 		};
 	}
-
-	public static void main(String[] args) {
-		String[] strings = { "abc", "ab c", "ABC", "AB C" };
-		List<String> stringList = Arrays.asList(strings);
-		stringList.sort(comparator());
-		for (String e : stringList) {
-			System.out.println(e);
-		}
-		System.out.println("**********");
-		stringList.sort(comparator(Properties.REVERSE));
-		for (String e : stringList) {
-			System.out.println(e);
-		}
-		System.out.println("**********");
-		stringList.sort(comparator(Properties.IGNORE_CASE));
-		for (String e : stringList) {
-			System.out.println(e);
-		}
-		System.out.println("**********");
-		stringList.sort(comparator(Properties.IGNORE_SPACE));
-		for (String e : stringList) {
-			System.out.println(e);
-		}
-	}
-
 }
