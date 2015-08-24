@@ -22,6 +22,7 @@ public class Transformer {
 	 * lexicographicComparator("lastname", "firstname")は, 2つのオブジェクトを受け取り,
 	 * lastnameフィールドの値を取得する. 2つのオブジェクトのlastnameフィールドが異なれば, その差を返す.
 	 * 同じであればfirstnameフィールドに移る. 全てのフィールドが同じであれば, 0を返す.
+	 *
 	 * @param <T>
 	 *
 	 * @param fieldName
@@ -117,10 +118,10 @@ public class Transformer {
 	public static void main(String[] args) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
 		Person p1 = new Person("tsuguka", "hatanaka", 28);
 		Person p2 = new Person("ayumu", "hatanaka", 0);
-		List<Person> persons = Arrays.asList(p1,p2);
-		Comparator<? super Person> c = lexicographicComparator("firstName","lastName","age");
+		List<Person> persons = Arrays.asList(p1, p2);
+		Comparator<? super Person> c = lexicographicComparator("firstName", "lastName", "age");
 		Collections.sort(persons, c);
-		for(Person e: persons){
+		for (Person e : persons) {
 			System.out.println(e);
 		}
 	}
