@@ -32,22 +32,24 @@ public class Transformer {
 	 * @throws IllegalAccessException
 	 * @throws IllegalArgumentException
 	 */
+	@SuppressWarnings("unchecked")
 	public static <T> Comparator<? super T> lexicographicComparator(String... fieldName) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
 		Objects.requireNonNull(fieldName, "An argument is null.");
-		return (o1, o2) -> {
+		return (o1, o2) -> {//ここはストリームで書けない?
 			for (String n : fieldName) {
-				Comparable<?> t1 = null;
-				Comparable<?> t2 = null;
+				Comparable<T> t1 = null;
+				T t2 = null;
 				try {
-					t1 = getComparableField(o1, n);
-					t2 = getComparableField(o2, n);
+					t1 = (Comparable<T>) getComparableField(o1, n);
+					t2 = (T) getComparableField(o2, n);
 				} catch (Exception e) {
-					e.printStackTrace();
+					throw new AssertionError(e.getMessage());
 				}
+
 				if (t1.equals(t2)) {
 					continue;
 				} else {
-					return ((Comparable) t1).compareTo(t2);
+					return t1.compareTo(t2);
 				}
 			}
 			return 0;
@@ -55,13 +57,13 @@ public class Transformer {
 	}
 
 	/**
-	 * 指定されたオブジェクトの, 指定されたフィールドを取得する. privateなインスタンスフィールドも表示する.
+	 * オブジェクトのフィールドを名前で取得する. privateなインスタンスフィールドも表示する.
 	 *
 	 * @param target
 	 *            指定されたオブジェクト.
 	 * @param fieldName
 	 *            指定されたフィールド名.
-	 * @return
+	 * @return 指定されたオブジェクトの指定されたフィールドの値. nullが返る(指定されたフィールドの値がnullの場合).
 	 * @throws IllegalArgumentException
 	 *             - if the specified object is not an instance of the class or
 	 *             interface declaring the underlying field (or a subclass or
@@ -91,27 +93,55 @@ public class Transformer {
 				f = clazz.getDeclaredField(fieldName);
 				break;
 			} catch (NoSuchFieldException e) {
-				clazz = clazz.getSuperclass();
+				clazz = clazz.getSuperclass();// 親クラスで宣言されているフィールドはさかのぼって検索する
 			}
 		}
-		if (f != null) {
-			f.setAccessible(true);
-			try {
-				return f.get(target);
-			} catch (IllegalAccessException e) {
-				throw new AssertionError("Cannot access a field.");
-			}
-		} else {
+		if (f == null) {
 			throw new NoSuchFieldException("Could not find a field \"" + fieldName + "\".");
+		}
+		f.setAccessible(true);
+		try {
+			return f.get(target);
+		} catch (IllegalAccessException e) {
+			throw new AssertionError("Cannot access a field.");// setAccessible(true)してるのでここには来ない
 		}
 	}
 
-	private static Comparable<?> getComparableField(Object target, String fieldName) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
-		Object o = getFieldValue(target, fieldName);
-		if (o instanceof Comparable) {
-			return (Comparable<?>) o;
+	/**
+	 * オブジェクトのフィールドを名前で取得する. そのフィールドはComparableを実装している.
+	 * privateなインスタンスフィールドも表示する.
+	 *
+	 * @param target
+	 *            指定されたオブジェクト.
+	 * @param fieldName
+	 *            指定されたフィールド名.
+	 * @return 指定されたオブジェクトの指定されたフィールドの値. nullが返る(指定されたフィールドの値がnullの場合).
+	 * @throws IllegalArgumentException
+	 *             - if the specified object is not an instance of the class or
+	 *             interface declaring the underlying field (or a subclass or
+	 *             implementor thereof).
+	 * @throws IllegalAccessException
+	 *             - if this Field object is enforcing Java language access
+	 *             control and the underlying field is inaccessible.
+	 * @throws NoSuchFieldException
+	 *             - if a field with the specified name is not found.
+	 * @throws SecurityException
+	 *             - If a security manager, s, is present and the caller's class
+	 *             loader is not the same as or an ancestor of the class loader
+	 *             for the current class and invocation of
+	 *             s.checkPackageAccess() denies access to the package of this
+	 *             class.
+	 * @throws ExceptionInInitializerError
+	 *             - if the initialization provoked by this method fails.
+	 * @throws RuntimeEception
+	 *             - フィールドがComparableでない場合
+	 */
+	private static Object getComparableField(Object target, String fieldName) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
+		Object value = getFieldValue(target, fieldName);
+		if (value instanceof Comparable) {
+			return value;
 		} else {
-			throw new RuntimeException("Fields are not Comparable");
+			throw new RuntimeException("A Field is not Comparable");
 		}
 	}
 

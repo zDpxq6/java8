@@ -1,5 +1,9 @@
 package ch03.exercise11;
 
+import java.util.Objects;
+import java.util.function.UnaryOperator;
+import java.util.stream.IntStream;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -14,20 +18,35 @@ import javafx.stage.Stage;
  * それから, 変換によって明るくなった画像に灰色の枠を追加するために, 実装したメソッドを使用しなさい(灰色の枠に関しては練習問題5を参照しなさい).
  *
 */
+@FunctionalInterface
+interface ColorTransformer {
+	Color apply(int x, int y, Color colorAtXY);
+
+	public static ColorTransformer compose(ColorTransformer c1, ColorTransformer c2) {
+		Objects.requireNonNull(c1, "The argument c1 is null.");
+		Objects.requireNonNull(c2, "The argument c2 is null.");
+		return (x, y, colorAtXY) -> c2.apply(x, y, c1.apply(x, y, colorAtXY));
+	}
+
+	public static ColorTransformer convert(UnaryOperator<Color> unaryOperator) {
+		Objects.requireNonNull(unaryOperator, "The argument unaryOperator is null.");
+		return (x, y, colorAtXY) -> unaryOperator.apply(colorAtXY);
+	}
+}
 
 public class Transformer extends Application {
 
 	private static final int MARGIN = 10;
 
-	public static Image transform(Image in, ColorTransformer f) {
-		int width = (int) in.getWidth();
-		int height = (int) in.getHeight();
-		WritableImage out = new WritableImage(width, height);
-		for (int x = 0; x < width; x++) {
-			for (int y = 0; y < height; y++) {
-				out.getPixelWriter().setColor(x, y, f.apply(x, y, in.getPixelReader().getColor(x, y)));
-			}
-		}
+	public static Image transform(Image image, ColorTransformer transfer) {
+		int w = (int) image.getWidth();
+		int h = (int) image.getHeight();
+		WritableImage out = new WritableImage(w, h);
+		IntStream.range(0, w).forEach(x -> {
+			IntStream.range(0, h).forEach(y -> {
+				out.getPixelWriter().setColor(x, y, transfer.apply(x, y, image.getPixelReader().getColor(x, y)));
+			});
+		});
 		return out;
 	}
 
