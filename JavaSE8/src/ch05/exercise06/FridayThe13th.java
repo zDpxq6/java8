@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 /*
  * 6. 20世紀の全ての13日の金曜日を列挙しなさい.
  */
-public class Cal {
+public class FridayThe13th {
 
 	private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("d");
 
