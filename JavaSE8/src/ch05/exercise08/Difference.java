@@ -1,12 +1,10 @@
 package ch05.exercise08;
 
-import java.time.Instant;
-import java.time.OffsetDateTime;
+import java.time.Clock;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.ZoneOffset;
-import java.time.temporal.ChronoUnit;
-import java.util.Arrays;
-import java.util.TimeZone;
+import java.time.ZonedDateTime;
 
 /*
  * 8. 現在の時刻インスタントに対してサポートされる全てのタイムゾーンにおいて,
@@ -15,8 +13,8 @@ import java.util.TimeZone;
  */
 public class Difference {
 	public static void main(String[] args) {
-		Instant now = Instant.now();
-		OffsetDateTime od = Instant.now().atOffset(ZoneOffset.UTC);
-		Arrays.stream(TimeZone.getAvailableIDs()).map(z -> od.until(now.atZone(ZoneId.of(z)), ChronoUnit.HOURS)).forEach(System.out::println);
+		LocalDateTime now = LocalDateTime.now();
+		ZonedDateTime utc = ZonedDateTime.of(LocalDateTime.now(), Clock.systemUTC().getZone());
+		ZoneId.getAvailableZoneIds().stream().map(zoneId -> Duration.between(now.atZone(ZoneId.of(zoneId)), utc)).forEach(System.out::println);
 	}
 }
