@@ -15,7 +15,7 @@ import javafx.beans.property.SimpleObjectProperty;
 初めてxxxProperty()メソッド呼び出された時にだけプロパティオブジェクトを使用するように,
 要求に応じてプロパティを構築する方法を示しなさい.
 */
-public class OnDemandProperty {
+public class Snipet {
 	private final Map<PropertyNames, Object> rawProperties = new HashMap<>();
 	private final Map<PropertyNames, ObjectProperty<Object>> properties = new HashMap<>();
 	private final Object LOCK = new Object();

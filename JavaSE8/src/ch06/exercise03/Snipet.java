@@ -10,7 +10,7 @@ import javafx.beans.property.SimpleObjectProperty;
 デフォルトではない値に設定されたり, xxxProperty()メソッドが最初に呼び出された時に,
 要求に応じてプロパティを構築する方法を示しなさい.
 */
-public class OnDemandProperty {
+public class Snipet {
 	private Object xxx = new Object();
 
 	public final ObjectProperty<Object> xxxProperty() {
