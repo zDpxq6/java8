@@ -37,7 +37,7 @@ public class SortDemo {
 		try {
 			List<String> ls = fileToStrings("alice.txt");
 			List<String[]> arrayList = new ArrayList<>();
-			IntStream.range(1, 30).forEachOrdered(i -> arrayList.add( ls.stream().limit(i * 1000)));
+			IntStream.range(1, 30).forEachOrdered(i -> arrayList.add((String[]) ls.stream().limit(i * 1000).toArray(Stream[]::new)));
 			System.out.println(arrayList.size());
 			arrayList.stream().forEachOrdered(array -> {
 				System.out.println("test");
