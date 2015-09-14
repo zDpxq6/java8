@@ -1,4 +1,4 @@
-package ch06.exercise05;
+package ch06.exercise06;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,11 +15,11 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 
-/**
- * 5. 複数スレッドが複数のファイルからすべての単語を読み込むアプリケーションを書きなさい.
- * 各単語がどのファイルで使用されていたかを管理するためにConcurrentHashMap<String, Set<File>>を使用しなさい.
- * マップを更新するために, mergeメソッドを使用しなさい.
- */
+/*6.
+Mapを更新するメソッドとして, mergeの代わりにcomputeIfAbsentを使用して,
+練習問題5と同じアプリケーションを作成しなさい. この方法の利点はなんですか.
+*/
+
 public class ConcurrentHashMapDemo {
 
 	/**
@@ -41,9 +41,15 @@ public class ConcurrentHashMapDemo {
 		return () -> {
 			try {
 				fileToStrings(filePath).forEach(key -> {
-					resultContaner.merge(key, generateSet(ConcurrentHashMap::newKeySet, new File(filePath)), (existingValue, newValue) -> {
-						existingValue.addAll(newValue);
-						return existingValue;
+					File file = new File(filePath);
+					resultContaner.computeIfAbsent(key, t -> {
+						Set<File> v = ConcurrentHashMap.newKeySet();
+						v.add(file);
+						return v;
+					});
+					resultContaner.computeIfPresent(key, (k, v) -> {
+						v.add(file);
+						return v;
 					});
 				});
 			} catch (IOException e) {
