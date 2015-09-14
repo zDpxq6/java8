@@ -33,7 +33,7 @@ public final class LoggingUtil {
 		Objects.requireNonNull(level, "An parameter: level is null.");
 		Objects.requireNonNull(condition, "An parameter: condition is null.");
 		Objects.requireNonNull(msgSupplier, "An parameter: msgSupplier is null.");
-		if (condition.get()) {
+		if (condition.get()) {//条件にログが出力できるかの判断も追加しておく. 
 			Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(level, msgSupplier);
 		}
 	}
