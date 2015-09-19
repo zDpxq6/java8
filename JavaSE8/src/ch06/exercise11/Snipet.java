@@ -1,4 +1,4 @@
-package ch06.exercise10;
+package ch06.exercise11;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
