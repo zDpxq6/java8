@@ -1,0 +1,18 @@
+例えば, ZonedDateTimeクラスなど, 試してみたいJava APIを選びなさい.
+その上で, オブジェクトの生成, メソッドの呼び出し, 戻り値の表示など, jssを使った実験を行いなさい.
+また, Javaでプログラムを書くよりは簡単かどうかを検証しなさい.
+
+結果
+コマンドラインツールが使いづらいが, 演算結果を簡単に表示でき, 便利.
+慣れれば簡単かも.
+jjs> var zdt = java.time.ZonedDateTime.now()
+jjs> zdt.toString()
+2015-10-01T22:45:33.108+09:00[Asia/Tokyo]
+jjs> zdt
+2015-10-01T22:45:33.108+09:00[Asia/Tokyo]
+jjs> var list = new java.util.ArrayList  
+jjs> list
+[]
+jjs> list.get(1)
+java.lang.IndexOutOfBoundsException: Index: 1, Size: 0
+jjs> 

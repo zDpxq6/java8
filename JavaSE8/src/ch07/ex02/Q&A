@@ -1,0 +1,17 @@
+jssを実行し, ストリームライブラリを使用して, 
+次の問題に対する解法をインタラクティブに求めなさい.
+問題: 
+あるファイルに含まれている長い単語(12文字より長い)を重複なしで全てソートして表示しなさい.
+最初に単語を読み込んで, 長い単語を選択して という具合に行いなさい.
+このインタラクティブな取り組み方は, 通常のワークフローと比較してどうですか.
+
+難しい
+
+var file = new java.io.File('/Users/tsuguka/JavaSE8/JavaSE8/alice.txt')
+var bytes = java.nio.file.Files.readAllBytes(file.toPath()) 
+var contents = new java.lang.String(bytes, java.nio.charset.StandardCharsets.UTF_8)
+var wa = contents.split(/\s+(.*?)\s+/)
+var words = java.util.Arrays.asList(Java.to(wa,'java.lang.String[]'))
+var add = function(a,b){return a.add(b)}
+var addAll = function(a, b){return a.addAll(b)}
+var stream = words.stream()
