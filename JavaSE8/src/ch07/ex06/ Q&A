@@ -1,0 +1,8 @@
+一連のシェルコマンドを受け取り, 
+1つのコマンドの出力を次のコマンドの入力として接続し, 
+最後の出力を返すJavaScriptのpipe関数を書きなさい. 
+
+例えば, pipe('find.', 'grep -v class', 'sort')と呼び出せます. 
+単純に$EXECを繰り返し呼び出しなさい.
+
+function pipe(){ var result; for (var i = 0; i < arguments.length;  i++) { result = $EXEC(arguments[i], result); } return result; }

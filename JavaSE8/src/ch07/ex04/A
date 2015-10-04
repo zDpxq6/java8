@@ -1,0 +1,4 @@
+何も起こらず正しく変換される
+'Hello'.slice(-4).getClass()はjava.lang.Stringを返す.
+var result = java.lang.String.class.cast('Hello'.slice(-4))
+とすると, resultのクラスはStringである. エラーは起こらない.
