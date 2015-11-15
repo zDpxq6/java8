@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="ja" class="no-js"> <!--<![endif]-->
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+<title>ホーム: Java Platform, Standard Edition (Java SE) 8リリース8</title>
+<meta name="description" content="Java SE 8 Technical Documentation Home">
+
+<meta name="viewport" content="width=device-width">
+
+<link rel="stylesheet" href="assets/css/main.css">
+<link rel="stylesheet" href="assets/css/main-media-480-tablet.css">
+<link rel="stylesheet" href="assets/css/main-media-768-laptop.css">
+<link rel="stylesheet" href="assets/css/main-media-1140-deskp.css">
+
+<link rel="stylesheet" href="assets/css/simpletree.css">
+<link rel="stylesheet" href="assets/css/forms.css">
+<link rel="stylesheet" href="assets/css/panel.css">
+<link rel="stylesheet" href="assets/css/altanav.css">
+<link rel="stylesheet" href="assets/css/docstyles.css">
+
+<link rel="stylesheet" href="assets/css/print.css">
+<link rel="stylesheet" href="assets/css/home.css">
+<link rel="stylesheet" href="assets/css/normalize.min.css">    
+
+        
+<!--[if lt IE 9]>
+<link rel="stylesheet" href="assets/css/ltIE9.css">
+<![endif]-->         
+        
+<script src="assets/js/jquery-1.6.2.js"></script>
+<script src="assets/js/modernizr-2.6.1-respond-1.1.0.min.js"></script>
+
+<!--toggle search-->
+<script src="assets/js/toggle.search.js"  type="text/javascript"></script>
+<!--navigation main-->
+<script src="assets/js/altanav.js"  type="text/javascript"></script> 
+<!--custom tag element-->
+<script src="assets/js/customhtmltags.js"  type="text/javascript"></script> 
+
+<!--project specific head data-->
+  
+<!-- Function for printing -->  
+<script>
+function PrintPage()
+  {window.print();}
+</script>
+
+<script>
+  $(window).unload(function() {
+  });
+</script>
+
+<!-- keep select menu's sticking when hit back button-->
+<script>
+$(window).load(function () {
+    $("select").each(function () {
+        $(this).val($(this).find('option[selected]').val());
+    });
+});
+</script>
+
+<meta HTTP-EQUIV="Content-Type" Content="text/html; charset=UTF-8"></head>
+
+<body>
+<!--[if lt IE 7]>
+<div style="border-bottom: 1px solid #A3A481; background-color: #FFFFDC; padding: 10px; font: normal 13px/16px Arial, sans-serif;">
+<strong>You are running an older version of Internet Explorer or running Internet Explorer in compatibility mode.</strong>  For a richer experience, please upgrade to the latest <a href="http://windows.microsoft.com/en-US/internet-explorer/downloads/ie" target="_blank">Internet Explorer</a> version, or use <a href="http://www.google.com/chrome/" target="_blank">Chrome</a>, <a href="http://www.mozilla.com/en-US/firefox/" target="_blank">Firefox</a>, or <a href="http://www.apple.com/safari/" target="_blank">Safari</a>.
+</div>
+<![endif]--> 
+
+<div id="altlogo">Oracle | Hardware and Software, Engineered to Work Together</div>
+
+<span id="top"></span>
+
+<div class="header-container">
+<header class="wrapper clearfix">
+
+
+<div id="brandProdName" >
+<div id="logocover"></div>
+<div id="productName" >ドキュメント</div>
+</div> 
+
+<div id="signInArea"></div>
+<script type="text/javascript">
+$(document).ready(function() {
+$("#signInArea").load("version.html");
+});
+</script>
+
+
+<!--div id="searchheader">
+<form action="pg-results.php" method="get"><label for="search">Search</label>
+ <input id="search" name="search" type="search" /><input class="gobutton" name="submit"  type="button" value="GO" /></form>
+</div-->
+<div id="searchheader">
+<a class="button" href="http://docs.oracle.com/javase/search.html">Java SEドキュメントの検索</a>
+</div>
+
+<!-- Main Navigation -->
+<br class="clearfloat" />
+ <div id="navBar" class="io" >
+
+<!--
+<ul>
+<li><a class="menu1" title="Home" href="pg-home.php"><span>Home</span></a></li>
+<li><a class="menu2" title="What's New"><span>What's New</span><span class="dropdown-arrow"></span></a></li>
+<li><a class="menu3" title="All Books" href="pg-allbooks-infotype.php"><span>All Books</span></a></li>
+</ul>
+-->
+</div>
+            <br class="clearfloat" />
+<!--         
+<div id="navcontainer" >
+<div class="submenu2 shadow" ><h3>See What's New in <strong>SE</strong> Documentation</h3>
+</div>
+
+</div> -->
+            <br class="clearfloat" />
+<!-- End Main Navigation -->
+
+
+</header>
+</div>
+
+<div class="main-container">
+<div class="main wrapper clearfix">
+
+<div id="breadcrumb">
+
+</div>
+<div class="bookoptions"><a href="mailto:javasedocs_us@oracle.com" title="ご意見をお寄せください">ご意見をお寄せください</a> | <a href="#" onclick="PrintPage();">印刷</a></div>
+
+<h1 class="pagetitle">Java Platform, Standard Edition (Java SE) 8</h1>
+
+<div id="linksubmenu">
+<ul>
+<li class="tabselected"><a href="index.html">ホーム</a></li>
+<li><a href="javase-clienttechnologies.htm">クライアント・テクノロジ</a></li>
+<li><a href="javase-embedded.htm">組込み</a></li>
+<li><a href="javase-books.htm">すべてのブック</a></li>
+
+</ul>
+</div>
+<div class="contentarea clearboth">
+
+<div class="threecolumns">
+
+<div class="JavaList">
+
+
+   <h2>Java SE 8について</h2>
+   <ul>
+      <li><a href="http://www.oracle.com/technetwork/jp/java/javase/overview/8-whats-new-2157071-ja.html">新機能(機能および拡張機能)</a></li>
+      <li><a href="http://docs.oracle.com/javacomponents/jp/index.html" target="_blank">商用機能<img alt="アイコン: リンクは新しいウィンドウで開きます" height="12" src="assets/img-common/new-window.png" width="12" /></a></li>
+      <li><a href="http://www.oracle.com/technetwork/jp/java/javase/overview/8-compatibility-guide-2156366-ja.html">互換性ガイド</a></li>
+      <li><a href="http://www.oracle.com/technetwork/jp/java/javase/8-known-issues-2157115-ja.html">既知の問題</a>
+   </li>
+   </ul>
+   <h2>ダウンロードおよびインストール</h2>
+   <ul>
+      <li><a href="http://www.oracle.com/pls/topic/lookup?ctx=javase80&id=secert">認証済みのシステム構成</a></li>
+      <li><a href="docs/technotes/guides/install/install_overview.html">ダウンロードとインストールの方法</a>
+   </li>
+   </ul>
+   <h2>初めてのアプリケーション開発</h2>
+   <ul>
+      <li><a href="../../tutorial/getStarted/index.html">Javaスタート・ガイド</a></li>
+      <li><a href="http://www.oracle.com/pls/topic/lookup?ctx=javase80&id=JFXST">JavaFXスタート・ガイド</a>
+   </li>
+   </ul>
+</div>
+</div>
+
+<div class="threecolumns">
+<div class="JavaList">
+   <h2>言語の学習</h2>
+   <ul>
+      <li><a href="../../tutorial/tutorialLearningPaths.html">Javaチュートリアル・ラーニング・パス</a>
+   </li>
+   </ul>
+   <h2>監視およびトラブルシューティング</h2>
+   <ul>
+      <li><a href="http://docs.oracle.com/javacomponents/jp/index.html" target="_blank">Java Mission Control <img alt="アイコン: リンクは新しいウィンドウで開きます" height="12" src="assets/img-common/new-window.png" width="12" /></a></li>
+      <li><a href="http://docs.oracle.com/javacomponents/jp/index.html" target="_blank">Java Flight Recorder <img alt="アイコン: リンクは新しいウィンドウで開きます" height="12" src="assets/img-common/new-window.png" width="12" /></a></li>
+      <li><a href="docs/technotes/guides/troubleshoot">トラブルシューティング・ガイド</a></li>
+      <li><a href="docs/technotes/guides/vm/gctuning">HotSpot Virtual Machineガベージ・コレクション・チューニング・ガイド</a>
+   </li>
+   </ul>
+   <h2>デプロイ</h2>
+   <ul>
+      <li><a href="docs/technotes/guides/deploy">デプロイメント・ガイド</a>
+   </li>
+   </ul>
+</div>
+</div>
+
+<div class="threecolumns">
+<div class="JavaList">
+   <h2>リファレンス</h2>
+   <ul>
+      <li><a href="docs/api/index.html">Java SE APIドキュメント</a></li>
+      <li><a href="javafx/api/toc.htm">JavaFX APIドキュメント</a></li>
+      <li><a href="docs/index.html">開発者ガイド</a></li>
+      <li><a href="http://docs.oracle.com/javase/specs/index.html">Java言語および仮想マシン仕様</a></li>
+      <li><a href="docs/technotes/tools/unix/index.html">Java SEツール・リファレンス(UNIX)</a></li>
+      <li><a href="docs/technotes/tools/windows/index.html">Java SEツール・リファレンス(Windows)</a>
+   </li>
+   </ul>
+   <h2>リリース・ノート</h2>
+   <ul>
+      <li><a href="http://www.oracle.com/pls/topic/lookup?ctx=javase80&id=serelnotes">Java SEリリース・ノート</a>
+   </li>
+   </ul>
+</div>
+
+</div>
+
+
+<br class="clearfloat" />
+
+<br class="clearfloat" />
+</div><!--end rightbody-->
+
+<div class="contentarea2 clearboth">
+<div id="footerbox">
+
+<div class="threecolumns">
+
+<ul>
+<li><a href="http://www.oracle.com/technetwork/jp/index.html" target="_blank">Oracle Technology Network</a></li>
+<li><a href="http://www.oracle.com/technetwork/jp/java/javase/overview/index.html" target="_blank">OTNにおけるJava SE</a></li>
+<li><a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html" target="_blank">Java SEダウンロード</a></li></ul>
+
+</div><!--end-->
+   
+<div class="threecolumns">
+
+<ul>
+<li><a href="http://education.oracle.com/java_training/" target="_blank">Javaトレーニング</a></li>
+<li><a href="https://community.oracle.com/community/java" target="_blank">Javaフォーラム</a></li>
+<li><a href="https://blogs.oracle.com/java/" target="_blank">Javaソース・ブログ</a></li>
+<li><a href="http://blogs.oracle.com/thejavatutorials/" target="_blank">Javaチュートリアル・ブログ</a></li></ul>
+
+</div><!--end-->
+   
+<div class="threecolumns">
+
+<ul>
+<li><a href="http://docs.oracle.com/javaee/" target="_blank">Java EE</a></li>
+<li><a href="http://docs.oracle.com/javame/" target="_blank">Java ME</a></li>
+<li><a href="http://docs.oracle.com/javadb/" target="_blank">Java DB</a></li>
+<li><a href="http://www.oracle.com/jp/technologies/java/standard-edition/advanced-suite/overview/index.html" target="_blank">Java SE AdvancedおよびJava SE Suite</a></li></ul>
+
+</div><!--end-->
+
+<br class="clearfloat" />
+<span class="clearfloat"></span>
+
+</div><!--end footerbox-->
+
+
+</div> <!-- .contentarea -->
+</div><!-- .main -->
+</div><!-- .main-container -->
+<div class="main wrapper">
+
+<div class="socialicons">
+<a href="https://www.facebook.com/ilovejava" target="_blank"><img alt="Facebook" class="socialIcon facebook" src="assets/img-common/f_spacer.gif" /></a> <a href="http://www.twitter.com/java" target="_blank"><img alt="Twitter" class="socialIcon twitter" src="assets/img-common/f_spacer.gif" /></a> <a href="http://blogs.oracle.com/thejavatutorials/feed/entries/rss" target="_blank"><img alt="RSSフィード" class="socialIcon rss" src="assets/img-common/f_spacer.gif" /></a>
+</div>
+<div class="SocialBar">
+
+
+<div id="tw-like">
+<!-- from:twitter:https://twitter.com/about/resources/buttons#tweet -->
+<a class="twitter-share-button" data-count="none" href="https://twitter.com/share">ツイート</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+</div>
+
+
+
+<div id="go-like">
+<!-- https://developers.google.com/+/web/+1button/ -->
+
+<!-- Place this tag where you want the +1 button to render. -->
+<div class="g-plusone" data-size="medium" data-annotation="none"></div>
+
+<!-- Place this tag after the last +1 button tag. -->
+<script type="text/javascript">
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+</div>
+
+
+
+
+<!--<div id="fb-like">
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<div class="fb-like" data-href="https://www.facebook.com/OracleCloudComputing" data-width="450" data-layout="button_count" data-show-faces="false" data-send="true"></div>
+</div>-->
+
+
+</div>
+</div>
+
+
+
+<div class="footer-container" >
+ <footer> <span style="display:block;">Copyright c 2014, Oracle and/or its affiliates. All rights reserved.<a href="assets/cpyr.htm">法律上の注意点</a></span> </footer>
+</div>
+
+       <br />
+
+        <!--<script src="assets/js/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="assets/js/jquery-1.8.0.min.js"><\/script>')</script>-->
+
+<!-- Start SiteCatalyst code -->
+<script type="text/javascript" language="JavaScript" src="http://www.oracle.com/ocom/groups/systemobject/@mktg_admin/documents/systemobject/s_code_download.js"></script>
+<script type="text/javascript" language="JavaScript" src="http://www.oracle.com/ocom/groups/systemobject/@mktg_admin/documents/systemobject/s_code.js"></script>
+
+<!-- ********** DO NOT ALTER ANYTHING BELOW THIS LINE ! *********** -->
+<!--  Below code will send the info to Omniture server -->
+<script type="text/javascript" language="javascript">var s_code=s.t();if(s_code)document.write(s_code)</script>
+
+<!-- End SiteCatalyst code -->
+
+
+</body>
+</html>
