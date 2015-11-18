@@ -27,7 +27,7 @@ public class Demo {
 			throw new NullPointerException("a parameter \"op\" is null");
 		}
 		if (m == 0 || n == 0) {
-			throw new IllegalArgumentException("neither m nor n can be 0");
+			throw new ArithmeticException("neither m nor n can be 0");
 		}
 		if (m < n) {// mとnを入れ替える
 			int tmp = n;

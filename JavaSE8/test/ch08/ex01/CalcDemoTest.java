@@ -1,8 +1,8 @@
 package ch08.ex01;
 
-import static ch08.ex01.CalcDemo未完.addUnsigned;
-import static ch08.ex01.CalcDemo未完.divideUnsigned;
-import static ch08.ex01.CalcDemo未完.subtructUnsigned;
+import static ch08.ex01.UnsignedCalcurator.addUnsigned;
+import static ch08.ex01.UnsignedCalcurator.divideUnsigned;
+import static ch08.ex01.UnsignedCalcurator.subtructUnsigned;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
