@@ -6,27 +6,30 @@ import java.io.PrintWriter;
 import java.nio.file.Paths;
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.Spliterator;
+import java.util.Spliterators;
+import java.util.stream.StreamSupport;
 
-public class Demo {
+public class TryWithoutResource {
 	public static void convertLinesToLowerCases(String sourcePath, String destinationPath) throws IOException {
 		Objects.requireNonNull(sourcePath, "An argument is null.");
 		Objects.requireNonNull(destinationPath, "An argument is null.");
-		Scanner in = null;
-		PrintWriter out = null;
+		Scanner scanner = null;
+		final PrintWriter out = new PrintWriter(destinationPath);
 		IOException exception = null;
 		try {
-			in = new Scanner(Paths.get(sourcePath));
-			out = new PrintWriter(destinationPath);
-			while (in.hasNext()) {
-				out.println(in.next().toLowerCase());
-			}
-			throw new IOException("try節での例外");
+			scanner = new Scanner(Paths.get(sourcePath));
+			StreamSupport.stream(Spliterators.spliteratorUnknownSize(scanner, Spliterator.ORDERED), false).forEach(e -> out.println(e.toLowerCase()));
+			out.close();
 		} catch (IOException e) {
 			exception = e;
 		} finally {
-			addSuppressed(in, exception);
-			addSuppressed(out, exception);
+			if(out != null){
+				out.close();
+			}
 			if (exception != null) {
+				addSuppressed(scanner, exception);
+				addSuppressed(out, exception);
 				throw exception;
 			}
 		}

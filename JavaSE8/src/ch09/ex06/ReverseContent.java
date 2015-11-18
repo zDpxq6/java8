@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.Objects;
 
 public class ReverseContent {
 
@@ -19,10 +20,17 @@ public class ReverseContent {
 		return result;
 	}
 
+	public static void reverseFileContents(String sourcePath, String destinationPath) throws IOException {
+		Objects.requireNonNull(sourcePath, "sourcePath is null");
+		Objects.requireNonNull(destinationPath, "destinationPath is null");
+		byte[] reversed = reverse(Files.readAllBytes(Paths.get(sourcePath)));
+		Files.write(Paths.get(destinationPath), reversed, StandardOpenOption.CREATE);
+
+	}
+
 	public static void main(String[] args) {
 		try {
-			byte[] reversed = reverse(Files.readAllBytes(Paths.get("./ch09ex05src.txt")));
-			Files.write(Paths.get("./ch09ex05dest.txt"), reversed, StandardOpenOption.CREATE);
+			reverseFileContents("./ch09ex05src.txt", "./ch09ex05dest.txt");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

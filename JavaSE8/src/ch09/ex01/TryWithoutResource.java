@@ -6,7 +6,7 @@ import java.nio.file.Paths;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class Demo {
+public class TryWithoutResource {
 
 	public static void convertLinesToLowerCases(String sourcePath, String destinationPath) {
 		Objects.requireNonNull(sourcePath, "An argument is null.");
