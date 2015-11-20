@@ -12,7 +12,10 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
-public class test {
+public final class ScannerToStreamUtility {
+	
+	private ScannerToStreamUtility(){}
+	
 	private static <T> Stream<T> convertToStream(Scanner scanner, Function<Scanner, T> f) {
 		Iterator<T> ite = new Iterator<T>() {
 			T comingElement = null;
